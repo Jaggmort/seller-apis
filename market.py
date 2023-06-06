@@ -11,6 +11,20 @@ logger = logging.getLogger(__file__)
 
 
 def get_product_list(page, campaign_id, access_token):
+    """Получаем список товаром клиента на маркетплейсе Yandex.market.
+
+    Args:
+        page (int): Номер текущей станицы.
+        campaign_id (str): Идентификатор клиента (уникальный для клиента).
+        access_token (str): API-ключ клиента (уникальный для клиента).
+
+    Returns:
+        dict: Содержит информацию о товарах.
+
+    Raises:
+        ReadTimeout, ConnectionError или ERROR_2.
+
+    """
     endpoint_url = "https://api.partner.market.yandex.ru/"
     headers = {
         "Content-Type": "application/json",
@@ -30,6 +44,20 @@ def get_product_list(page, campaign_id, access_token):
 
 
 def update_stocks(stocks, campaign_id, access_token):
+    """Обновить количество товаров клиента на маркетплейсе Yandex.market.
+
+    Args:
+        stocks (list):  Информация о наличии товаров в магазине (timeworld.ru).
+        campaign_id (str): Идентификатор клиента (уникальный для клиента).
+        access_token (str): API-ключ клиента (уникальный для клиента).
+
+    Returns:
+        dict: Содержит информацию о товарах.
+
+    Raises:
+        ReadTimeout, ConnectionError или ERROR_2.
+
+    """
     endpoint_url = "https://api.partner.market.yandex.ru/"
     headers = {
         "Content-Type": "application/json",
@@ -46,6 +74,20 @@ def update_stocks(stocks, campaign_id, access_token):
 
 
 def update_price(prices, campaign_id, access_token):
+    """Обновить цены товаров клиента на маркетплейсе Yandex.market.
+
+    Args:
+        prices (list): Список содержащий информацию о ценах на товары.
+        campaign_id (str): Идентификатор клиента (уникальный для клиента).
+        access_token (str): API-ключ клиента (уникальный для клиента).
+
+    Returns:
+        dict: Содержит информацию о ценах на товары.
+
+    Raises:
+        ReadTimeout, ConnectionError или ERROR_2.
+
+    """
     endpoint_url = "https://api.partner.market.yandex.ru/"
     headers = {
         "Content-Type": "application/json",
@@ -62,7 +104,19 @@ def update_price(prices, campaign_id, access_token):
 
 
 def get_offer_ids(campaign_id, market_token):
-    """Получить артикулы товаров Яндекс маркета"""
+    """Получить артикулы товаров маркетплейса Yandex.market.
+
+    Args:
+        campaign_id (str): Идентификатор клиента (уникальный для клиента).
+        access_token (str): API-ключ клиента (уникальный для клиента).
+
+    Returns:
+        list: Список артикулов товаров клиента, если не вызовет ошибки.
+
+    Raises:
+        ReadTimeout, ConnectionError или ERROR_2.
+
+    """
     page = ""
     product_list = []
     while True:
@@ -78,6 +132,20 @@ def get_offer_ids(campaign_id, market_token):
 
 
 def create_stocks(watch_remnants, offer_ids, warehouse_id):
+    """Создаем информацию о количестве товаров в магазине (timeworld.ru).
+
+    Args:
+        watch_remnants (dict): Информация и количесто товаров
+        в магазине (timeworld.ru).
+        offer_ids (list): Список артикулов товаров клиента
+        на маркетплейсе Yandex.market.
+        warehouse_id (str): Идентификатор склада.
+
+    Returns:
+        list: Список с количеством текущих товаров клиента на маркетплейсе
+        Yandex.market (Включая товары с количеством 0).
+
+    """
     # Уберем то, что не загружено в market
     stocks = list()
     date = str(datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z")
@@ -123,6 +191,20 @@ def create_stocks(watch_remnants, offer_ids, warehouse_id):
 
 
 def create_prices(watch_remnants, offer_ids):
+    """Создание цен товаров клиента в магазине (timeworld.ru).
+
+    Args:
+        watch_remnants (dict): Информация и количесто товаров
+        в магазине (timeworld.ru).
+        offer_ids (list): Список артикулов товаров клиента
+        на маркетплейсе Yandex.market.
+
+    Returns:
+        list: Список текущих цен товаров клиента на маркетплейсе
+        Yandex.market.
+
+    """
+    
     prices = []
     for watch in watch_remnants:
         if str(watch.get("Код")) in offer_ids:
@@ -143,6 +225,19 @@ def create_prices(watch_remnants, offer_ids):
 
 
 async def upload_prices(watch_remnants, campaign_id, market_token):
+    """Обновление цен на товары клиента на маркетплейсе Yandex.market.
+
+    Args:
+        watch_remnants (dict): Информация и количесто товаров
+        в магазине (timeworld.ru).
+        campaign_id (str): Идентификатор клиента (уникальный для клиента).
+        market_token (str): API-ключ клиента (уникальный для клиента).
+
+    Returns:
+        list: Список текущих цен товаров клиента на маркетплейсе
+        Yandex.market.
+
+    """
     offer_ids = get_offer_ids(campaign_id, market_token)
     prices = create_prices(watch_remnants, offer_ids)
     for some_prices in list(divide(prices, 500)):
@@ -151,6 +246,22 @@ async def upload_prices(watch_remnants, campaign_id, market_token):
 
 
 async def upload_stocks(watch_remnants, campaign_id, market_token, warehouse_id):
+    """Обновление количества товаров клиента на маркетплейсе Yandex.market
+
+    Args:
+        watch_remnants (dict): Информация и количесто товаров
+        в магазине (timeworld.ru).
+        campaign_id (str): Идентификатор клиента (уникальный для клиента).
+        market_token (str): API-ключ клиента (уникальный для клиента).
+        warehouse_id (str): Идентификатор склада.
+
+    Returns:
+        list: Список товаров клиента и их количества маркетплейсе Yandex.market
+        (Исключая случаи с количеством товара равным 0).
+        list: Список товаров клиента и их количества маркетплейсе Yandex.market
+        (Включая случаи с количеством товара равным 0).
+
+    """
     offer_ids = get_offer_ids(campaign_id, market_token)
     stocks = create_stocks(watch_remnants, offer_ids, warehouse_id)
     for some_stock in list(divide(stocks, 2000)):
