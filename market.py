@@ -199,7 +199,7 @@ def create_stocks(watch_remnants, offer_ids, warehouse_id):
 
 
 def create_prices(watch_remnants, offer_ids):
-    """Создание цен товаров клиента в магазине (timeworld.ru).
+    """Создаем цены товаров клиента в магазине (timeworld.ru).
 
     Args:
         watch_remnants (dict): Информация и количесто товаров
