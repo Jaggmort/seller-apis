@@ -14,7 +14,7 @@ def get_product_list(page, campaign_id, access_token):
     """Получаем список товаром клиента на маркетплейсе Yandex.market.
 
     Args:
-        page (int): Номер текущей станицы.
+        page (str): Номер текущей станицы.
         campaign_id (str): Идентификатор клиента (уникальный для клиента).
         access_token (str): API-ключ клиента (уникальный для клиента).
 
