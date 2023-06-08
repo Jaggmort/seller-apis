@@ -23,7 +23,7 @@ def get_product_list(last_id, client_id, seller_token):
         dict: Информация о товарах.
        
     Raises:
-        ReadTimeout, ConnectionError или ERROR_2.
+        HTTPError.
         
     """
     url = "https://api-seller.ozon.ru/v2/product/list"
@@ -80,6 +80,9 @@ def update_price(prices: list, client_id, seller_token):
         seller_token (str): API-Токен клиента (уникален для клиента).
     Returns:
         list: список обновленных цен, включает неудачные попытки.
+    Raises:
+        HTTPError.
+    
     """
     url = "https://api-seller.ozon.ru/v1/product/import/prices"
     headers = {
@@ -102,6 +105,8 @@ def update_stocks(stocks: list, client_id, seller_token):
         seller_token (str): API-Токен клиента (уникален для клиента).
     Returns:
         list: список обновленных товаров, включает неудачные попытки.
+    Raises:
+        HTTPError.
     
     """
     url = "https://api-seller.ozon.ru/v1/product/import/stocks"
@@ -120,7 +125,8 @@ def download_stock():
     
     Returns:
         dict: Содержит выгрузку из файла ostatki.zip.
-    
+    Raises:
+        HTTPError.
     """
     # Скачать остатки с сайта
     casio_url = "https://timeworld.ru/upload/files/ostatki.zip"
