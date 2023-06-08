@@ -11,7 +11,7 @@ logger = logging.getLogger(__file__)
 
 
 def get_product_list(page, campaign_id, access_token):
-    """Получаем список товаром клиента на маркетплейсе Yandex.market.
+    """Получаем список товаров клиента на маркетплейсе Yandex.market.
 
     Args:
         page (str): Идентификатор страницы c результатами.
@@ -143,7 +143,7 @@ def create_stocks(watch_remnants, offer_ids, warehouse_id):
     """Создаем информацию о количестве товаров в магазине (timeworld.ru).
 
     Args:
-        watch_remnants (dict): Информация и количесто товаров
+        watch_remnants (dict): Информация и количество товаров
         в магазине (timeworld.ru).
         offer_ids (list): Список артикулов товаров клиента
         на маркетплейсе Yandex.market.
