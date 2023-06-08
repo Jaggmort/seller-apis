@@ -215,8 +215,8 @@ def divide(lst: list, n: int):
         lst (list): Список с элементами.
         n (int): Количество элементов в новом списке.
 
-    Returns:
-        list: Список, из списков с n-элементами.
+    Yields:
+        list: Список из списков по n-элементов.
     
     """
     for i in range(0, len(lst), n):
