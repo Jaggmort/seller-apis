@@ -23,8 +23,7 @@ def get_product_list(page, campaign_id, access_token):
         dict: Содержит информацию о товарах.
 
     Raises:
-        ReadTimeout, ConnectionError или ERROR_2
-        (остальные ошибки не входящие в первые две, содержит текст ошибки).
+        HTTPError.
 
     """
     endpoint_url = "https://api.partner.market.yandex.ru/"
@@ -58,8 +57,7 @@ def update_stocks(stocks, campaign_id, access_token):
         dict: Содержит информацию о товарах.
 
     Raises:
-        ReadTimeout, ConnectionError или ERROR_2
-        (остальные ошибки не входящие в первые две, содержит текст ошибки).
+        HTTPError.
 
     """
     endpoint_url = "https://api.partner.market.yandex.ru/"
@@ -90,8 +88,7 @@ def update_price(prices, campaign_id, access_token):
         dict: Содержит информацию о ценах на товары.
 
     Raises:
-        ReadTimeout, ConnectionError или ERROR_2
-        (остальные ошибки не входящие в первые две, содержит текст ошибки).
+        HTTPError.
 
     """
     endpoint_url = "https://api.partner.market.yandex.ru/"
@@ -121,8 +118,7 @@ def get_offer_ids(campaign_id, market_token):
         list: Список артикулов товаров клиента, если не вызовет ошибки.
 
     Raises:
-        ReadTimeout, ConnectionError или ERROR_2
-        (остальные ошибки не входящие в первые две, содержит текст ошибки).
+        HTTPError.
 
     """
     page = ""
