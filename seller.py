@@ -20,7 +20,7 @@ def get_product_list(last_id, client_id, seller_token):
         seller_token (str): API-Токен клиента (уникален для клиента).
        
     Returns:
-        dict: Информация о товаре.
+        dict: Информация о товарах.
        
     Raises:
         ReadTimeout, ConnectionError или ERROR_2.
