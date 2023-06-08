@@ -14,15 +14,17 @@ def get_product_list(page, campaign_id, access_token):
     """Получаем список товаром клиента на маркетплейсе Yandex.market.
 
     Args:
-        page (str): Номер текущей станицы.
-        campaign_id (str): Идентификатор клиента (уникальный для клиента).
+        page (str): Идентификатор страницы c результатами.
+        campaign_id (str): Идентификатор клиента для работы с выбранной схемой
+        (уникален для связки клиента и схемы работы).
         access_token (str): API-ключ клиента (уникальный для клиента).
 
     Returns:
         dict: Содержит информацию о товарах.
 
     Raises:
-        ReadTimeout, ConnectionError или ERROR_2.
+        ReadTimeout, ConnectionError или ERROR_2
+        (остальные ошибки не входящие в первые две, содержит текст ошибки).
 
     """
     endpoint_url = "https://api.partner.market.yandex.ru/"
@@ -48,14 +50,16 @@ def update_stocks(stocks, campaign_id, access_token):
 
     Args:
         stocks (list):  Информация о наличии товаров в магазине (timeworld.ru).
-        campaign_id (str): Идентификатор клиента (уникальный для клиента).
+        campaign_id (str): Идентификатор клиента для работы с выбранной схемой
+        (уникален для связки клиента и схемы работы).
         access_token (str): API-ключ клиента (уникальный для клиента).
 
     Returns:
         dict: Содержит информацию о товарах.
 
     Raises:
-        ReadTimeout, ConnectionError или ERROR_2.
+        ReadTimeout, ConnectionError или ERROR_2
+        (остальные ошибки не входящие в первые две, содержит текст ошибки).
 
     """
     endpoint_url = "https://api.partner.market.yandex.ru/"
@@ -78,14 +82,16 @@ def update_price(prices, campaign_id, access_token):
 
     Args:
         prices (list): Список содержащий информацию о ценах на товары.
-        campaign_id (str): Идентификатор клиента (уникальный для клиента).
+        campaign_id (str): Идентификатор клиента для работы с выбранной схемой
+        (уникален для связки клиента и схемы работы).
         access_token (str): API-ключ клиента (уникальный для клиента).
 
     Returns:
         dict: Содержит информацию о ценах на товары.
 
     Raises:
-        ReadTimeout, ConnectionError или ERROR_2.
+        ReadTimeout, ConnectionError или ERROR_2
+        (остальные ошибки не входящие в первые две, содержит текст ошибки).
 
     """
     endpoint_url = "https://api.partner.market.yandex.ru/"
@@ -107,14 +113,16 @@ def get_offer_ids(campaign_id, market_token):
     """Получить артикулы товаров маркетплейса Yandex.market.
 
     Args:
-        campaign_id (str): Идентификатор клиента (уникальный для клиента).
+        campaign_id (str): Идентификатор клиента для работы с выбранной схемой
+        (уникален для связки клиента и схемы работы).
         access_token (str): API-ключ клиента (уникальный для клиента).
 
     Returns:
         list: Список артикулов товаров клиента, если не вызовет ошибки.
 
     Raises:
-        ReadTimeout, ConnectionError или ERROR_2.
+        ReadTimeout, ConnectionError или ERROR_2
+        (остальные ошибки не входящие в первые две, содержит текст ошибки).
 
     """
     page = ""
@@ -230,7 +238,8 @@ async def upload_prices(watch_remnants, campaign_id, market_token):
     Args:
         watch_remnants (dict): Информация и количесто товаров
         в магазине (timeworld.ru).
-        campaign_id (str): Идентификатор клиента (уникальный для клиента).
+        campaign_id (str): Идентификатор клиента для работы с выбранной схемой
+        (уникален для связки клиента и схемы работы).
         market_token (str): API-ключ клиента (уникальный для клиента).
 
     Returns:
@@ -251,7 +260,8 @@ async def upload_stocks(watch_remnants, campaign_id, market_token, warehouse_id)
     Args:
         watch_remnants (dict): Информация и количесто товаров
         в магазине (timeworld.ru).
-        campaign_id (str): Идентификатор клиента (уникальный для клиента).
+        campaign_id (str): Идентификатор клиента для работы с выбранной схемой
+        (уникален для связки клиента и схемы работы).
         market_token (str): API-ключ клиента (уникальный для клиента).
         warehouse_id (str): Идентификатор склада.
 
